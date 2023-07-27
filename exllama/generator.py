@@ -336,9 +336,11 @@ class ExLlamaGenerator:
                 break
             #print(stop_condition)
             #print(self.sequence[0][-2:].tolist())
-        new_text = self.tokenizer.decode(self.sequence[0] if self.sequence.shape[0] == 1 else self.sequence)
-        text = new_text[len(prompt):]  # get the newly generated text by removing the prompt
-        return text
+        generated_ids = self.sequence[0][len(ids[0]):]
+        generated_text = self.tokenizer.decode(generated_ids)
+        #new_text = self.tokenizer.decode(self.sequence[0] if self.sequence.shape[0] == 1 else self.sequence)
+        #text = new_text[len(prompt):]  # get the newly generated text by removing the prompt
+        return generated_ids,generated_text
 
 
     # Generate a single token with the current settings, append to sequence
